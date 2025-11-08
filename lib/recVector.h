@@ -6,8 +6,8 @@ typedef int RecVector[MAX];
 
 struct RecVOV {
 	RecVector vector;
-	int count;
-	int i;
+	int count; //occupied cells
+	int i; //index
 };
 
 // ------- Reset functions -------
@@ -15,6 +15,8 @@ void resetIndex(RecVOV &v);
 
 // ------- Init functions -------
 void init(RecVOV &v);
+
+//PRE:count>0
 void initRand(RecVOV &v, int count, int max);
 
 // ------- Output functions -------
