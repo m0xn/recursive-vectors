@@ -56,20 +56,20 @@ void show(RecVOV& v) {
 }
 
 // ------- Shift functions (helper functions) -------
-void shiftRight(RecVOV &v, int untilPos) {
-	if (v.i < untilPos) {
+void shiftRight(RecVOV &v, int startPos) {
+	if (v.i < v.count - startPos) {
 		v.vector[v.count - v.i] = v.vector[v.count - v.i - 1];
 		v.i++;
-		shiftRight(v, untilPos);
+		shiftRight(v, startPos);
 	}
 	else endProcessing(v, v.count);
 }
 
-void shiftLeft(RecVOV &v, int untilPos) {
-	if (v.i < untilPos) {
+void shiftLeft(RecVOV &v, int startPos) {
+	if (v.i < startPos) {
 		v.vector[v.i] = v.vector[v.i + 1];
 		v.i++;
-		shiftLeft(v, untilPos);
+		shiftLeft(v, startPos);
 	} else endProcessing(v, v.count);
 }
 
@@ -97,7 +97,7 @@ void eraseAt(RecVOV&v, int pos);
 void eraseAll(RecVOV&v, int val);
 
 // ------- Search functions -------
-int search(RecVOV&v, int val, int& pos);
+bool search(RecVOV&v, int val, int& pos);
 
 // ------- Arithmetic functions -------
 void add(RecVOV&v, RecVOV& w, RecVOV& r);
