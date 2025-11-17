@@ -94,7 +94,6 @@ void insert(RecVOV &v, int pos, int val) {
 // ------- Erase functions -------
 void erase(RecVOV &v, int val) {
 	if (v.i == v.count) endProcessing(v, v.count);
-
 	if (v.i<v.count) {
 		if (v.vector[v.i] != val) {
 			v.i++;
