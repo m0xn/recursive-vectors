@@ -7,13 +7,13 @@ using namespace std;
 bool seeded = false;
 
 // ------- Reset functions -------
-void endProcessing(RecVOV& v, int count) {
+void endProcessing(RecVOV &v, int count) {
 	v.i = 0;
 	v.count = count;
 }
 
 // ------- Init functions -------
-void init(RecVOV& v) {
+void init(RecVOV &v) {
 	v.count = v.i = 0;
 }
 
@@ -27,7 +27,7 @@ void fill(RecVOV &v, int count, int val) {
 	else endProcessing(v, count);
 }
 
-void fillRand(RecVOV& v, int count, int max) {
+void fillRand(RecVOV &v, int count, int max) {
 	if (!seeded) {
 		srand(time(NULL));
 		seeded = true;
@@ -42,7 +42,7 @@ void fillRand(RecVOV& v, int count, int max) {
 }
 
 // ------- Output functions -------
-void show(RecVOV& v) {
+void show(RecVOV &v) {
 	if (v.i == 0) cout << "{ ";
 	if (v.i < v.count) {
 		cout << v.vector[v.i] << " ";
@@ -74,7 +74,7 @@ void shiftLeft(RecVOV &v, int startPos) {
 }
 
 // ------- Insert functions -------
-void pushFront(RecVOV& v, int val) {
+void pushFront(RecVOV &v, int val) {
 	shiftRight(v, v.count);
 	v.vector[0] = val;
 	endProcessing(v, v.count + 1);
@@ -93,14 +93,41 @@ void insert(RecVOV &v, int pos, int val) {
 
 // ------- Erase functions -------
 void erase(RecVOV &v, int val);
-void eraseAt(RecVOV&v, int pos);
-void eraseAll(RecVOV&v, int val);
+void eraseAt(RecVOV &v, int pos);
+void eraseAll(RecVOV &v, int val);
 
 // ------- Search functions -------
-bool search(RecVOV&v, int val, int& pos);
+bool search(RecVOV &v, int val, int& pos);
 
 // ------- Arithmetic functions -------
-void add(RecVOV&v, RecVOV& w, RecVOV& r);
-void substract(RecVOV&v, RecVOV& w, RecVOV& r);
-void mult(RecVOV&v, RecVOV& w, RecVOV& r);
-void divide(RecVOV&v, RecVOV& w, RecVOV& r);
+void add(RecVOV &v, RecVOV &w, RecVOV &r) {
+	if (r.i < v.count) {
+		r.vector[r.i] = v.vector[r.i] + w.vector[r.i];
+		r.i++;
+		add(v, w, r);
+	} else endProcessing(r, v.count);
+}
+
+void substract(RecVOV &v, RecVOV &w, RecVOV &r) {
+	if (r.i < v.count) {
+		r.vector[r.i] = v.vector[r.i] - w.vector[r.i];
+		r.i++;
+		substract(v, w, r);
+	} else endProcessing(r, v.count);
+}
+
+void mult(RecVOV &v, RecVOV &w, RecVOV &r) {
+	if (r.i < v.count) {
+		r.vector[r.i] = v.vector[r.i] * w.vector[r.i];
+		r.i++;
+		mult(v, w, r);
+	} else endProcessing(r, v.count);
+}
+
+void divide(RecVOV &v, RecVOV &w, RecVOV &r) {
+	if (r.i < v.count) {
+		r.vector[r.i] = v.vector[r.i] / w.vector[r.i];
+		r.i++;
+		divide(v, w, r);
+	} else endProcessing(r, v.count);
+}
