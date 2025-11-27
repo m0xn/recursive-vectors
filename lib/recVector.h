@@ -10,13 +10,6 @@ struct RecVOV {
 	int i; //index
 };
 
-// ------- Update functions -------
-
-// PRE:  v is properly initialized, 0 < count <= MAX
-// POST: Resets v.i to 0 and updates v.count with
-//		 the value of 'count'.
-void endProcessing(RecVOV &v, int count);
-
 // ------- Init functions -------
 
 // PRE:
@@ -44,17 +37,6 @@ void fillRand(RecVOV &v, int count, int max);
 // 		 using the format { v_0 v_1 ... v_v.count-1 }
 void show(RecVOV &v);
 
-// ------- Shift functions (helper functions) -------
-
-// PRE:  v is properly initialized, 0 <= startPos <= v.count-1
-// POST: shifts all the elements to the right from startPos
-// 		 until v.count
-void shiftRight(RecVOV &v, int startPos);
-
-// PRE:  v is properly intialized, 0 <= startPos <= v.count-1
-// POST: shifts all the elements to the left from startPos
-// 		 until v.count
-void shiftLeft(RecVOV &v, int startPos);
 
 // ------- Insert functions -------
 
