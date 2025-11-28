@@ -11,36 +11,36 @@ bool seeded = false;
 // PRE:  v is properly initialized, 0 < count <= MAX
 // POST: Resets v.i to 0 and updates v.count with
 //		 the value of 'count'.
-void endProcessing(RecVOV &v, int count);
+void endProcessing(RecVOV& v, int count);
 
 // ------- Shift functions (helper functions) -------
 
 // PRE:  v is properly initialized, 0 <= startPos <= v.count-1
 // POST: shifts all the elements to the right from startPos
 // 		 until v.count
-void shiftRight(RecVOV &v, int startPos);
+void shiftRight(RecVOV& v, int startPos);
 
 // PRE:  v is properly intialized, 0 <= startPos <= v.count-1
 // POST: shifts all the elements to the left from startPos
 // 		 until v.count
-void shiftLeft(RecVOV &v, int startPos);
+void shiftLeft(RecVOV& v, int startPos);
 
 // ------- END OF PRIVATE FUNCTIONS -------
 
 
 // ------- Reset functions -------
-void endProcessing(RecVOV &v, int count) {
+void endProcessing(RecVOV& v, int count) {
 	v.i = 0;
 	v.count = count;
 }
 
 // ------- Init functions -------
-void init(RecVOV &v) {
+void init(RecVOV& v) {
 	v.count = v.i = 0;
 }
 
 // ------- Fill functions -------
-void fill(RecVOV &v, int count, int val) {
+void fill(RecVOV& v, int count, int val) {
 	if (v.i < count) {
 		v.vector[v.i] = val;
 		v.i++;
@@ -49,7 +49,7 @@ void fill(RecVOV &v, int count, int val) {
 	else endProcessing(v, count);
 }
 
-void fillRand(RecVOV &v, int count, int max) {
+void fillRand(RecVOV& v, int count, int max) {
 	if (!seeded) {
 		srand(time(NULL));
 		seeded = true;
@@ -64,7 +64,7 @@ void fillRand(RecVOV &v, int count, int max) {
 }
 
 // ------- Output functions -------
-void show(RecVOV &v) {
+void show(RecVOV& v) {
 	if (v.i == 0) cout << "{ ";
 	if (v.i < v.count) {
 		cout << v.vector[v.i] << " ";
@@ -78,7 +78,7 @@ void show(RecVOV &v) {
 }
 
 // ------- Shift functions (helper functions) -------
-void shiftRight(RecVOV &v, int startPos) {
+void shiftRight(RecVOV& v, int startPos) {
 	if (v.i < v.count - startPos) {
 		v.vector[v.count - v.i] = v.vector[v.count - v.i - 1];
 		v.i++;
@@ -87,7 +87,7 @@ void shiftRight(RecVOV &v, int startPos) {
 	else endProcessing(v, v.count);
 }
 
-void shiftLeft(RecVOV &v, int startPos) {
+void shiftLeft(RecVOV& v, int startPos) {
 	if (v.i < startPos) {
 		v.vector[v.i] = v.vector[v.i + 1];
 		v.i++;
@@ -96,25 +96,25 @@ void shiftLeft(RecVOV &v, int startPos) {
 }
 
 // ------- Insert functions -------
-void pushFront(RecVOV &v, int val) {
+void pushFront(RecVOV& v, int val) {
 	shiftRight(v, v.count);
 	v.vector[0] = val;
 	endProcessing(v, v.count + 1);
 }
 
-void pushBack(RecVOV &v, int val) {
+void pushBack(RecVOV& v, int val) {
 	v.vector[v.count] = val;
 	v.count++;
 }
 
-void insert(RecVOV &v, int pos, int val) {
+void insert(RecVOV& v, int pos, int val) {
 	shiftRight(v, pos);
 	v.vector[pos] = val;
 	endProcessing(v, v.count + 1);
 }
 
 // ------- Erase functions -------
-void erase(RecVOV &v, int val) {
+void erase(RecVOV& v, int val) {
 	if (v.i == v.count) endProcessing(v, v.count);
 	if (v.i<v.count) {
 		if (v.vector[v.i] != val) {
@@ -128,12 +128,12 @@ void erase(RecVOV &v, int val) {
 	}
 }
 
-void eraseAt(RecVOV &v, int pos) {
+void eraseAt(RecVOV& v, int pos) {
 	shiftLeft(v, pos);
 	endProcessing(v, v.count - 1);
 }
 
-void eraseAll(RecVOV &v, int val) {
+void eraseAll(RecVOV& v, int val) {
 	if(v.i==v.count) endProcessing(v, v.count);
 	if (v.i < v.count) {
 		if (v.vector[v.i] != val) {
@@ -149,14 +149,15 @@ void eraseAll(RecVOV &v, int val) {
 }
 
 // ------- Search functions -------
-bool search(RecVOV &v, int val, int& pos) {
+bool search(RecVOV& v, int val, int& pos) {
 	if(v.i == v.count){
 		pos = - 1;
 		endProcessing(v, v.count);
+		return false;
 	}
 	if (v.i < v.count){
 		if (v.vector[v.i] == val){
-			return 1;
+			return true;
 		}
 		else{
 			pos++;
@@ -166,7 +167,7 @@ bool search(RecVOV &v, int val, int& pos) {
 }
 
 // ------- Arithmetic functions -------
-void add(RecVOV &v, RecVOV &w, RecVOV &r) {
+void add(RecVOV& v, RecVOV& w, RecVOV& r) {
 	if (r.i < v.count) {
 		r.vector[r.i] = v.vector[r.i] + w.vector[r.i];
 		r.i++;
@@ -174,7 +175,7 @@ void add(RecVOV &v, RecVOV &w, RecVOV &r) {
 	} else endProcessing(r, v.count);
 }
 
-void substract(RecVOV &v, RecVOV &w, RecVOV &r) {
+void substract(RecVOV& v, RecVOV& w, RecVOV& r) {
 	if (r.i < v.count) {
 		r.vector[r.i] = v.vector[r.i] - w.vector[r.i];
 		r.i++;
@@ -182,7 +183,7 @@ void substract(RecVOV &v, RecVOV &w, RecVOV &r) {
 	} else endProcessing(r, v.count);
 }
 
-void mult(RecVOV &v, RecVOV &w, RecVOV &r) {
+void mult(RecVOV& v, RecVOV& w, RecVOV& r) {
 	if (r.i < v.count) {
 		r.vector[r.i] = v.vector[r.i] * w.vector[r.i];
 		r.i++;
@@ -190,7 +191,7 @@ void mult(RecVOV &v, RecVOV &w, RecVOV &r) {
 	} else endProcessing(r, v.count);
 }
 
-void divide(RecVOV &v, RecVOV &w, RecVOV &r) {
+void divide(RecVOV& v, RecVOV& w, RecVOV& r) {
 	if (r.i < v.count) {
 		r.vector[r.i] = v.vector[r.i] / w.vector[r.i];
 		r.i++;
