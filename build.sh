@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 if [[ ! -e build ]]; then
-    mkdir build    
+    mkdir build
 fi
 
 CC_FLAGS="-Wall -Werror"
